@@ -95,7 +95,7 @@ class Install extends CommandAbstract
             'MySQL username to connect.'
         );
         $this->addOption(
-            'no-password', '-n', InputOption::VALUE_NONE,
+            'no-password', '-o', InputOption::VALUE_NONE,
             'Skip using MySQL password.'
         );
         $this->addOption(
