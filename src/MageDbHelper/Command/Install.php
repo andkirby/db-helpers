@@ -9,7 +9,7 @@ use Symfony\Component\Console\Output\OutputInterface;
 /**
  * CommitHooks files installer
  *
- * @package PreCommit
+ * @package AndKirby\MageDbHelper\Command
  */
 class Install extends CommandAbstract
 {

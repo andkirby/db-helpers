@@ -15,7 +15,7 @@ use Symfony\Component\Console\Output\OutputInterface;
 /**
  * Class CommandAbstract
  *
- * @package PreCommit\Composer\Command
+ * @package AndKirby\MageDbHelper\Command
  */
 abstract class CommandAbstract extends Command
 {
