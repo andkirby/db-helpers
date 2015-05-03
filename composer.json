@@ -1,0 +1,19 @@
+{
+  "name": "andkirby/mage-db-helper",
+  "description": "Database Helpers (Magento)",
+  "license": "MIT",
+  "authors": [
+    {
+      "name": "Andrew Roslik",
+      "email": "bizkirby@gmail.com"
+    }
+  ],
+  "minimum-stability": "beta",
+  "require": {
+    "php": ">=5.3.2",
+    "symfony/console": "2.*||3.*@stable"
+  },
+  "bin": [
+    "bin/mage-db-helper"
+  ]
+}
