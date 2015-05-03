@@ -99,7 +99,7 @@ class Install extends CommandAbstract
             'Skip using MySQL password.'
         );
         $this->addOption(
-            'mysql-host', '-h', InputOption::VALUE_OPTIONAL,
+            'mysql-host', '-t', InputOption::VALUE_OPTIONAL,
             'MySQL DB host to connect.'
         );
         $this->addOption(
