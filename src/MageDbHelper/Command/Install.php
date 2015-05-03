@@ -121,7 +121,14 @@ class Install extends CommandAbstract
     {
         $scriptName = 'Stub';
         //test connection
-        $this->importSqlFile($scriptName, $input, $output);
+        try {
+            $this->importSqlFile($scriptName, $input, $output);
+        } catch (MySqlException $e) {
+            if ($this->isVerbose($output)) {
+                throw $e;
+            }
+            throw new Exception('Could not connect to MySQL properly. Please check your parameters.');
+        }
         return $this;
     }
 
@@ -220,11 +227,11 @@ class Install extends CommandAbstract
     {
         if (false !== stripos($result, 'error')) {
             if ($this->isVeryVerbose($output)) {
-                throw new Exception('Command: ' . "$mySqlCommand $file" . PHP_EOL . $result);
+                throw new MySqlException('Command: ' . "$mySqlCommand $file" . PHP_EOL . $result);
             } elseif ($this->isVerbose($output)) {
-                throw new Exception($result);
+                throw new MySqlException($result);
             }
-            throw new Exception("An error occurred on importing script '$file'.");
+            throw new MySqlException("An error occurred on importing script '$file'.");
         }
         return $this;
     }
