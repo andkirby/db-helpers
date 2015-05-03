@@ -14,7 +14,8 @@
     "symfony/console": "2.*||3.*@stable"
   },
   "bin": [
-    "bin/mage-db-helper"
+    "bin/mage-db-helper",
+    "bin/mage-db-helper.php"
   ],
   "autoload": {
     "psr-4": {
