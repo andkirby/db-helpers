@@ -218,7 +218,7 @@ class Install extends CommandAbstract
      */
     protected function checkErrorInQueryResult(OutputInterface $output, $result, $mySqlCommand, $file)
     {
-        if (false === stripos($result, 'error')) {
+        if (false !== stripos($result, 'error')) {
             if ($this->isVeryVerbose($output)) {
                 throw new Exception('Command: ' . "$mySqlCommand $file" . PHP_EOL . $result);
             } elseif ($this->isVerbose($output)) {
