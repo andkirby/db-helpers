@@ -200,7 +200,7 @@ class Install extends CommandAbstract
     protected function getScriptFile($name)
     {
         $file = rtrim($this->srcDir, '\\/') . '/helper/' . $name . '.sql';
-        if (is_file($file)) {
+        if (!is_file($file)) {
             throw new Exception("File '$file' not found.");
         }
         return $file;
