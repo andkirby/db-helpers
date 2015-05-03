@@ -15,5 +15,10 @@
   },
   "bin": [
     "bin/mage-db-helper"
-  ]
+  ],
+  "autoload": {
+    "psr-4": {
+      "AndKirby\\MageDbHelper\\": "src/MageDbHelper"
+    }
+  }
 }
