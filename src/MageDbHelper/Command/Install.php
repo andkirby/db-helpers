@@ -242,6 +242,9 @@ class Install extends CommandAbstract
         $mySqlCommand = $this->getMySqlImportCommand($input, $output);
         $fileStub     = $this->getScriptFile($scriptName);
         $result       = `$mySqlCommand $fileStub 2>&1`;
+        if ($this->isVerbose($result)) {
+            $output->write($result);
+        }
         $this->checkErrorInQueryResult($output, $result, $mySqlCommand, $fileStub);
     }
 }
