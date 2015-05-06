@@ -137,6 +137,7 @@ class Install extends CommandAbstract
         $scripts = array(
             'DeleteAllTables',
             'ResetBaseUrl',
+            'ResetAdmin',
         );
         foreach ($scripts as $name) {
             $this->importSqlFile($name, $input, $output);
