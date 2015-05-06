@@ -10,7 +10,7 @@ $ composer global require andkirby/mage-db-helper
 
 ## Install scripts
 ```shell
-$ mage-db-helper install -d your_database -u your_dbname
+$ mage-db-helper install -d dbname -u dbuser -p password1
 ```
 If parameter `--mysql-password (-p)` (MySQL password) is ommited you may set it in dialog to make this command secured.
 Also you may skip asking password with parameter `--no-password (-o)`;
@@ -25,14 +25,22 @@ $ mage-db-helper install -h
 There are available helpers:
 - `DropAllTables`,
 - `ResetBaseUrl`.
+- `ResetAdmin`.
 
 ### `DropAllTables`
 Remove all tables from database. It useful to prevent reinstalling exists procedures (like these ones).
 ```sql
-CALL DropAllTables();
+CALL dbname.DropAllTables();
 ```
 ### `ResetBaseUrl`
 Reset base URLs in `core_config` table. It useful when you migrate database.
 ```sql
-CALL ResetBaseUrl('old-server.example.com', 'new-one.example.com');
+CALL dbname.ResetBaseUrl('old-server.example.com', 'new-one.example.com');
 ```
+### `ResetAdmin`
+Reset password, username (set to `admin`) and locking of first admin user (ID #1) in `admin_user` table. It useful to reset admin user quickly.
+```sql
+CALL dbname.ResetAdmin('your-new-password');
+```
+
+Note: `dbname` could be omitted in examples if you run `use dbname;` before.
