@@ -9,7 +9,7 @@
 namespace AndKirby\MageDbHelper\Command;
 
 use Symfony\Component\Console\Command\Command;
-use Symfony\Component\Console\Helper\DialogHelper;
+use Symfony\Component\Console\Helper\QuestionHelper;
 use Symfony\Component\Console\Output\OutputInterface;
 
 /**
@@ -49,11 +49,11 @@ abstract class CommandAbstract extends Command
     /**
      * Get dialog helper
      *
-     * @return DialogHelper
+     * @return QuestionHelper
      */
     protected function getDialog()
     {
-        return $this->getHelperSet()->get('dialog');
+        return $this->getHelperSet()->get('question');
     }
 
     /**

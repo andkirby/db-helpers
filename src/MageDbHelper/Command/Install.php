@@ -5,6 +5,7 @@ use AndKirby\MageDbHelper\Exception;
 use Symfony\Component\Console\Input\InputInterface;
 use Symfony\Component\Console\Input\InputOption;
 use Symfony\Component\Console\Output\OutputInterface;
+use Symfony\Component\Console\Question\Question;
 
 /**
  * CommitHooks files installer
@@ -132,6 +133,13 @@ class Install extends CommandAbstract
         return $this;
     }
 
+    /**
+     * Import SQL scripts
+     *
+     * @param \Symfony\Component\Console\Input\InputInterface   $input
+     * @param \Symfony\Component\Console\Output\OutputInterface $output
+     * @return $this
+     */
     protected function importScripts(InputInterface $input, OutputInterface $output)
     {
         $scripts = array(
@@ -190,8 +198,10 @@ class Install extends CommandAbstract
         if (!$input->getOption('no-password')) {
             $password = $input->getOption('mysql-password');
             if (!$password) {
-                $password = $this->getDialog()->askHiddenResponse(
-                    $output, "MySQL password: ", true
+                $question = new Question('MySQL password: ');
+                $question->setHidden(true);
+                $password = $this->getDialog()->ask(
+                    $input, $output, $question
                 );
             }
         }
@@ -232,7 +242,7 @@ class Install extends CommandAbstract
             } elseif ($this->isVerbose($output)) {
                 throw new MySqlException($result);
             }
-            throw new MySqlException("An error occurred on importing script '$file'.");
+            throw new Exception("An error occurred on importing script '$file'.");
         }
         return $this;
     }
