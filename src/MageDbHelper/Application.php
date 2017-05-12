@@ -23,7 +23,7 @@ class Application extends BaseApplication
     protected $_logo = <<<LOGO
  __ __   __   __   ___     __| |__    |__   ___  |    __   ___   __
 |  )  ) (__( (__| (__/_   (__| |__)   |  ) (__/_ |_, |__) (__/_ |  '
-              __/                                        |
+              __/                                    |
 
 LOGO;
 
