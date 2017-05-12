@@ -43,10 +43,10 @@ class Install extends CommandAbstract
     {
         $this->setName('install');
         $this->setHelp(
-            'This command can install available DB helpers into your database.'
+            'This command can install available DB helpers into your MySQL database.'
         );
         $this->setDescription(
-            'This command can install available DB helpers into your database.'
+            'This command can install available DB helpers into your MySQL database.'
         );
         return $this;
     }
@@ -73,9 +73,9 @@ class Install extends CommandAbstract
             }
         }
 
-        $database = $input->getOption('mysql-database');
+        $database = $input->getOption('database');
         $output->writeln(
-            "Script files have been imported into database '$database'."
+            "Script files have been imported into MySQL database '$database'."
         );
         return 0;
     }
@@ -88,11 +88,11 @@ class Install extends CommandAbstract
     protected function configureInput()
     {
         $this->addOption(
-            'mysql-user', '-u', InputOption::VALUE_REQUIRED,
+            'user', '-u', InputOption::VALUE_REQUIRED,
             'MySQL username to connect.'
         );
         $this->addOption(
-            'mysql-password', '-p', InputOption::VALUE_OPTIONAL,
+            'password', '-p', InputOption::VALUE_OPTIONAL,
             'MySQL username to connect.'
         );
         $this->addOption(
@@ -100,11 +100,11 @@ class Install extends CommandAbstract
             'Skip using MySQL password.'
         );
         $this->addOption(
-            'mysql-host', '-t', InputOption::VALUE_OPTIONAL,
+            'host', '-t', InputOption::VALUE_OPTIONAL,
             'MySQL DB host to connect.'
         );
         $this->addOption(
-            'mysql-database', '-d', InputOption::VALUE_REQUIRED,
+            'database', '-d', InputOption::VALUE_REQUIRED,
             'MySQL DB host to connect.'
         );
         return $this;
@@ -115,7 +115,7 @@ class Install extends CommandAbstract
      *
      * @param InputInterface  $input
      * @param OutputInterface $output
-     * @return array
+     * @return $this
      * @throws Exception
      */
     protected function testMysql(InputInterface $input, OutputInterface $output)
@@ -165,7 +165,7 @@ class Install extends CommandAbstract
         if (null === $this->mySqlImportCommand) {
             $command = 'mysql';
 
-            $username = $input->getOption('mysql-user');
+            $username = $input->getOption('user');
             $command .= " -u$username ";
 
             $password = $this->askMySqlPassword($input, $output);
@@ -173,12 +173,12 @@ class Install extends CommandAbstract
                 $command .= " -p$password ";
             }
 
-            $host = $input->getOption('mysql-host');
+            $host = $input->getOption('host');
             if ($host) {
                 $command .= " -h$host ";
             }
 
-            $database = $input->getOption('mysql-database');
+            $database = $input->getOption('database');
             $command .= " $database < ";
             $this->mySqlImportCommand = $command;
         }
@@ -196,7 +196,7 @@ class Install extends CommandAbstract
     {
         $password = false;
         if (!$input->getOption('no-password')) {
-            $password = $input->getOption('mysql-password');
+            $password = $input->getOption('password');
             if (!$password) {
                 $question = new Question('MySQL password: ');
                 $question->setHidden(true);
