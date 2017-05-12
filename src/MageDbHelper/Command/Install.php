@@ -22,6 +22,20 @@ class Install extends CommandAbstract
     protected $mySqlImportCommand;
 
     /**
+     * User directory path
+     *
+     * @var string
+     */
+    protected $userDir;
+
+    /**
+     * Source directory path
+     *
+     * @var string
+     */
+    protected $srcDir;
+
+    /**
      * Construct
      *
      * @param string $userDir
@@ -142,15 +156,24 @@ class Install extends CommandAbstract
      */
     protected function importScripts(InputInterface $input, OutputInterface $output)
     {
-        $scripts = array(
-            'DeleteAllTables',
-            'ResetBaseUrl',
-            'ResetAdmin',
-        );
-        foreach ($scripts as $name) {
+        foreach ($this->procedures() as $name) {
             $this->importSqlFile($name, $input, $output);
         }
         return $this;
+    }
+
+    /**
+     * Get procedures list
+     *
+     * @return array
+     */
+    protected function procedures()
+    {
+        return [
+            'DeleteAllTables',
+            'ResetBaseUrl',
+            'ResetAdmin',
+        ];
     }
 
     /**
@@ -261,8 +284,10 @@ class Install extends CommandAbstract
         $mySqlCommand = $this->getMySqlImportCommand($input, $output);
         $fileStub     = $this->getScriptFile($scriptName);
         $result       = `$mySqlCommand $fileStub 2>&1`;
-        if ($this->isVerbose($output)) {
+        if ($this->isVeryVerbose($output)) {
             $output->write($result);
+        } elseif ($this->isVerbose($output)) {
+            $output->write("Script '$scriptName' has been imported.");
         }
         $this->checkErrorInQueryResult($output, $result, $mySqlCommand, $fileStub);
         return $this;
